@@ -1,3 +1,12 @@
+# Copy this file to /etc/systemd/system/wiimote.service
+# Modify it to point to the location of where you've put your wiimote.py file in the "ExecStart" line I put mine in my home directory
+# It needs the network to be up.
+
+# Enable it as follows:
+# sudo systemctl daemon-reload
+# sudo systemctl enable wiimote.service
+# sudo systemctl start wiimote
+
 [Unit]
 After=network-online.target
 Wants=network-online.target
