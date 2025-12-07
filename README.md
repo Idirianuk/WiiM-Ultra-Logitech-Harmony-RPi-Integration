@@ -1,0 +1,66 @@
+This is here pretty much as is.
+
+How to get your Harmony Remote system working with you WiiM Ultra (and other Wiim Streamers?)
+
+Here's a fairly superficial overview of what I did to get this working
+
+I used the page shown below to get the basics sorted:
+https://samndave.org.uk/index.php/2021/02/07/raspberry-pi-ir-remote-and-python/
+
+I only needed Volume control and a few other basic functions, so the .toml file is fairly limited in scope
+
+It's assumed that you already have an RPi, probably with the light version of RPIos.
+
+Get yourself a cheap remote and IR sensor. I got these from the PiHut
+
+This is the remote that I used:
+https://thepihut.com/products/mini-remote-control?variant=758604261
+
+This is the IR receiver I used:
+https://thepihut.com/products/ir-infrared-receiver-tsop38238?variant=20063103942718
+
+Connect the IR receiver to your RPi according to the instructions shown here on Adafruit:
+https://learn.adafruit.com/using-an-ir-remote-with-a-raspberry-pi-media-center/hardware
+
+
+Install the ir-keytable package:
+
+sudo apt install ir-keytable
+
+Depending on which remote you have used, you may need to find out what the keycodes you wish to use for your particular remote
+Use the following to find out what the keycodes are for your remote and for the buttons you want to use are:
+
+sudo ir-keytable -v -t -p all 
+
+Press those buttons!
+
+Modify the remote.toml file with these keycodes
+
+More keycodes can be found in the following Header file:
+https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
+
+Modify remote.toml according to you needs then copy it to:
+/etc/rc_keymaps/remote.toml
+
+create the file /etc/rc.local and add the following line:
+/usr/bin/ir-keytable -a /etc/rc_maps.cfg -s rc0
+
+Place the wiimote.py file in a place of your choice. I put mine in a subdirecty of my home directory. Modify this according to your needs.
+It's fairly self explanitory of you understand a bit of Python. I know almost nothing about it, but managed.
+
+Copy the wiimote.service file to:
+/etc/systemd/system/wiimote.service
+Modify it suitably.
+
+Enable it as follows:
+sudo systemctl daemon-reload
+sudo systemctl enable wiimote.service
+sudo systemctl start wiimote
+
+You'll then need to add a new device to your harmony setup. I added a "WiiM Ultra" device to my set up using the MyHarmony app on your PC.
+I told mine that I was adding and Amplifier type device.
+It'll not find it in the database.
+It will give you the chance to 'teach' it the keys from your remote that you're going to use for Volume etc. using your Harmony handheld remote, connected to your PC via USB.
+You'll have to modify any existing activities to use the "WiiM" device as the volume control, by adding the device to the activity and following the Wizard.
+
+Hopefully, I've not missed anything. It's all fairly straightforward if you know your way around Debian or Ubuntu already.
