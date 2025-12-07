@@ -1,7 +1,10 @@
-I've put this here "as is". It's not something I'll be supporting in any way. I will update it if I add anything or change anything, though.
-Hopefully, you might find it useful, or at least and inspiration for doing things in a better way.
+How to get your Harmony Remote system working with you WiiM Ultra (and other WiiM Streamers?)
+---------------------------------------------------------------------------------------------
 
-How to get your Harmony Remote system working with you WiiM Ultra (and other Wiim Streamers?)
+I've put this here "as is". It's not something I'll be supporting in any way. I will update it if I add anything or change anything, though.
+Hopefully, you might find it useful, or at least an inspiration for doing things in a better way.
+
+I also hope I've not missed anything out. It was a really useful way to spend a very wet Sunday morning in December.
 
 Here's a fairly superficial overview of what I did to get this working
 
@@ -12,7 +15,9 @@ I only needed Volume control and a few other basic functions, so the .toml file 
 
 It's assumed that you already have an RPi, probably with the light version of RPIos.
 
-Get yourself a cheap remote and IR sensor. I got these from the PiHut
+It needs to be connected to the same network as your WiiM device and on the same VLAN (if you use a VLAN setup. I don't, for this device).
+
+Get yourself a cheap remote and IR sensor. I got mine from the PiHut
 
 This is the remote that I used:
 https://thepihut.com/products/mini-remote-control?variant=758604261
@@ -23,7 +28,7 @@ https://thepihut.com/products/ir-infrared-receiver-tsop38238?variant=20063103942
 Connect the IR receiver to your RPi according to the instructions shown here on Adafruit:
 https://learn.adafruit.com/using-an-ir-remote-with-a-raspberry-pi-media-center/hardware
 
-Add the following line to the end of you /boot/firmware/config.txt file.
+Add the following line to the end of your /boot/firmware/config.txt file, or modify the line you already have!
 If you want BT or WiFi, remove "disable-wifi,disable-bt" entries.
 
 dtoverlay=gpio-ir,gpio_pin=18,disable-wifi,disable-bt
@@ -44,7 +49,7 @@ Modify the remote.toml file with these keycodes.
 More keycodes can be found in the following Header file:
 https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
 
-Modify remote.toml according to you needs then copy it to:
+Modify remote.toml according to your needs then copy it to:
 /etc/rc_keymaps/remote.toml
 
 create the file /etc/rc.local and add the following line:
