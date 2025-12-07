@@ -1,4 +1,5 @@
-This is here pretty much as is.
+I've put this here "as is". It's not something I'll be supporting in any way. I will update it if I add anything or change anything, though.
+Hopefully, you might find it useful, or at least and inspiration for doing things in a better way.
 
 How to get your Harmony Remote system working with you WiiM Ultra (and other Wiim Streamers?)
 
@@ -22,6 +23,10 @@ https://thepihut.com/products/ir-infrared-receiver-tsop38238?variant=20063103942
 Connect the IR receiver to your RPi according to the instructions shown here on Adafruit:
 https://learn.adafruit.com/using-an-ir-remote-with-a-raspberry-pi-media-center/hardware
 
+Add the following line to the end of you /boot/firmware/config.txt file.
+If you want BT or WiFi, remove "disable-wifi,disable-bt" entries.
+
+dtoverlay=gpio-ir,gpio_pin=18,disable-wifi,disable-bt
 
 Install the ir-keytable package:
 
@@ -32,9 +37,9 @@ Use the following to find out what the keycodes are for your remote and for the 
 
 sudo ir-keytable -v -t -p all 
 
-Press those buttons!
+Press those buttons! Get those keycodes!
 
-Modify the remote.toml file with these keycodes
+Modify the remote.toml file with these keycodes.
 
 More keycodes can be found in the following Header file:
 https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
@@ -57,8 +62,9 @@ sudo systemctl daemon-reload
 sudo systemctl enable wiimote.service
 sudo systemctl start wiimote
 
-You'll then need to add a new device to your harmony setup. I added a "WiiM Ultra" device to my set up using the MyHarmony app on your PC.
-I told mine that I was adding and Amplifier type device.
+You'll then need to add a new device to your Harmony setup. I added a "WiiM Ultra" device to my set up using the MyHarmony app on your PC.
+I don't think that you can do it without this PC App.
+I told mine that I was adding an Amplifier type device.
 It'll not find it in the database.
 It will give you the chance to 'teach' it the keys from your remote that you're going to use for Volume etc. using your Harmony handheld remote, connected to your PC via USB.
 You'll have to modify any existing activities to use the "WiiM" device as the volume control, by adding the device to the activity and following the Wizard.
