@@ -1,0 +1,9 @@
+[Unit]
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/home/<your username>/wiimote/wiimote.py
+
+[Install]
+WantedBy=default.target

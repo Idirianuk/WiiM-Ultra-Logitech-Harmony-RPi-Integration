@@ -1,0 +1,13 @@
+# Copy this file to /etc/rc_keymaps/remote.toml
+[[protocols]]
+name = "UltraThin"
+protocol = "nec"
+varient = "nec32"
+
+[protocols.scancodes]
+0x45 = "KEY_VOLUMEDOWN"
+0x46 = "KEY_PLAYPAUSE"
+0x47 = "KEY_VOLUMEUP"
+0x43 = "KEY_MUTE"
+0x07 = "KEY_PREVIOUSSONG"
+0x09 = "KEY_NEXTSONG"
